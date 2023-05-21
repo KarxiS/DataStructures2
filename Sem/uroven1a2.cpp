@@ -142,6 +142,7 @@ auto uroven1a2::main() -> int
                 break;
 
             default:
+                input = 0;
                 break;
             }
 
