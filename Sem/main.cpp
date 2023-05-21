@@ -23,7 +23,7 @@ auto main() -> int
         SetConsoleCP(1250);
         //uroven1a2 uroven;
         //uroven.main();
-        uroven1a2 uroven;
+        uroven4 uroven;
         uroven.main();
 }
 _CrtDumpMemoryLeaks();

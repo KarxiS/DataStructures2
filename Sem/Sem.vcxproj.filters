@@ -39,6 +39,9 @@
     <ClCompile Include="uroven4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TriediaciAlgoritmus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nacitavac.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="uroven4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TriediaciAlgoritmus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

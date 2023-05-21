@@ -136,6 +136,7 @@
     <ClCompile Include="Nacitavac.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="plnicHierarchie.cpp" />
+    <ClCompile Include="TriediaciAlgoritmus.cpp" />
     <ClCompile Include="uroven1a2.cpp" />
     <ClCompile Include="uroven3.cpp" />
     <ClCompile Include="uroven4.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="MemoryLeak.h" />
     <ClInclude Include="Nacitavac.h" />
     <ClInclude Include="plnicHierarchie.h" />
+    <ClInclude Include="TriediaciAlgoritmus.h" />
     <ClInclude Include="uroven1a2.h" />
     <ClInclude Include="uroven3.h" />
     <ClInclude Include="uroven4.h" />

@@ -2,6 +2,9 @@
 #include "Data.h"
 #include <vector>
 #include <iostream>
+#include <string>
+#include <algorithm>
+
 class Algoritmus {
 public:
 
@@ -53,6 +56,23 @@ public:
                 plnic(*it);
             }
         }
+    }
+
+
+    static bool jeHlaska(std::string hlaska) {
+        const std::string hlasky = "AÁÄEÉIÍOÓUÚYÝaáäeéiíoóuúyý";
+        if (hlasky.find(hlaska) == std::string::npos) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    static int pocitadloHlasiek(const std::string& slovo) {
+        return std::count_if(slovo.begin(), slovo.end(), [](char c) {
+            return Algoritmus::jeHlaska(std::string(1, c));
+            });
     }
 };
 

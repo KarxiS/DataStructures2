@@ -4,6 +4,8 @@
 #include <libds/amt/hierarchy.h>
 #include <libds/amt/explicit_hierarchy.h>
 #include "plnicHierarchie.h"
+#include "TriediaciAlgoritmus.cpp"
+#include <locale>
 
 auto uroven4::main() -> int
 {
@@ -38,8 +40,18 @@ auto uroven4::main() -> int
     function<bool(const Data&)> hasType = [&](const Data& d) { return d.hasType(typ); };
     
     function<void(const Data&)> plnicPred = [&](const Data& d) { vektorNaplneny.insertLast().data_=d; };
-    
-
+    //function<bool(const Data&)> triedHlasky = [&](const Data& d) { return d.containsStr(str); };
+    std::function<bool(const Data&, const Data&)> triedAbeceda = [&](const Data& d, const Data& a) {
+        std::locale loc("Slovak_Slovakia.1250");
+        const std::collate<char>& collate = std::use_facet<std::collate<char>>(loc);
+        const char* pb1 = d.officialTitle.data();
+        const char* pb2 = a.officialTitle.data();
+        return collate.compare(pb1, pb1 + d.officialTitle.size(), pb2, pb2 + a.officialTitle.size()) < 0;
+    };
+    std::function<bool(const Data&, const Data&)> triedHlasky = [&](const Data& d, const Data& a) {
+        return Algoritmus::pocitadloHlasiek(d.officialTitle) < Algoritmus::pocitadloHlasiek(a.officialTitle);
+    };
+    function<bool(const Data&)> trueLambda = [&](const Data& d) { return true; };
     cout << "ahoj, zacinas v slovensko kmeni, otvaram kraje v slovensku\n" << endl;
     int input = 0;
     auto aktualnyNode = hierar.accessRoot();
@@ -47,8 +59,10 @@ auto uroven4::main() -> int
     while (input != -1) {
 
         ds::amt::Hierarchy<ds::amt::MultiWayExplicitHierarchyBlock<Data>>::PreOrderHierarchyIterator begin2(&hierar, aktualnyNode);
-        cout << "--1 vyssie, 2 dole,3 containsStr,4 startsStr,5 hasType--\n";
-        Algoritmus::filter(begin2, hierar.end(), hasType);
+        cout << "--1 vyssie, 2 dole,3 containsStr,4 startsStr,5 hasType,6-podlaHlasiek, 7-podlaAbecedy--\n";
+        vynulujStrukturu(vektorNaplneny);
+        Algoritmus::filterPlnic(++begin2, hierar.end(), hasType, plnicPred);
+        vypisStrukturu(vektorNaplneny);
         cin >> input;
         int index = 0;
         switch (input) {
@@ -88,17 +102,22 @@ auto uroven4::main() -> int
         case 3:
             cout << "co vyhladat?" << endl;
             cin >> str;
-            Algoritmus::filterPlnic(begin2, hierar.end(), containsStr, plnicPred);
+            Algoritmus::filterPlnic(++begin2, hierar.end(), containsStr, plnicPred);
+            
+            //TriediaciAlgoritmus::tried(vektorNaplneny, triedAbeceda);
             vypisStrukturu(vektorNaplneny);
-            vynulujStrukturu(vektorNaplneny);
+            
             cout << "potvrd vysledok";
+            
             cin >> str;
             break;
 
         case 4:
             cout << "co vyhladat?" << endl;
             cin >> str;
-            Algoritmus::filterPlnic(begin2, hierar.end(), startsWith, plnicPred);
+            Algoritmus::filterPlnic(++begin2, hierar.end(), startsWith, plnicPred);
+
+            //TriediaciAlgoritmus::tried(vektorNaplneny, triedAbeceda);
             vypisStrukturu(vektorNaplneny);
             vynulujStrukturu(vektorNaplneny);
             cout << "potvrd vysledok";
@@ -109,10 +128,43 @@ auto uroven4::main() -> int
         case 5:
             cout << "co vyhladat za typ ? okres,obec,kraj" << endl;
             cin >> typ;
-            Algoritmus::filterPlnic(begin2, hierar.end(), hasType, plnicPred);
+            Algoritmus::filterPlnic(++begin2, hierar.end(), hasType, plnicPred);
+
+            //TriediaciAlgoritmus::tried(vektorNaplneny, triedAbeceda);
             vypisStrukturu(vektorNaplneny);
             vynulujStrukturu(vektorNaplneny);
-            cout << "vratit sa k nefiltrovanemu";
+            cout << "vratit sa k nefiltrovanemu"<<endl;
+            typ = aktualnyNode->sons_->accessFirst()->data_->data_.type;
+            cin >> str;
+            break;
+
+
+
+        case 6:
+            cout << "sortujemPodlaHlasok" << endl;
+            
+            cin >> str;
+            //Algoritmus::filterPlnic(++begin2, hierar.end(), trueLambda, plnicPred);
+
+            TriediaciAlgoritmus::tried(vektorNaplneny, triedHlasky);
+            vypisStrukturu(vektorNaplneny);
+            vynulujStrukturu(vektorNaplneny);
+            cout << "vratit sa k nefiltrovanemu" << endl;
+            typ = aktualnyNode->sons_->accessFirst()->data_->data_.type;
+            cin >> str;
+            break;
+
+
+
+        case 7:
+            cout << "sortujemPodlaAbecedy" << endl;
+           
+            //Algoritmus::filterPlnic(++begin2, hierar.end(), true, plnicPred);
+
+            TriediaciAlgoritmus::tried(vektorNaplneny, triedAbeceda);
+            vypisStrukturu(vektorNaplneny);
+            vynulujStrukturu(vektorNaplneny);
+            cout << "vratit sa k nefiltrovanemu" << endl;
             typ = aktualnyNode->sons_->accessFirst()->data_->data_.type;
             cin >> str;
             break;
@@ -128,9 +180,10 @@ auto uroven4::main() -> int
 
 void uroven4::vypisStrukturu(strukturaData& struktura)
 {
-
+    int pocitadlo = 0;
     for (Data data : struktura) {
-        cout << data.toString();
+        cout << "INDEX:" << pocitadlo <<"  " << data.toString();
+        pocitadlo++;
     }
 }
 
