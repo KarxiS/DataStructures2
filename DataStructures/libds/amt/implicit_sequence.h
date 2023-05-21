@@ -7,7 +7,9 @@ namespace ds::amt
 {
 
 	template<typename DataType>
-	class ImplicitSequence : public Sequence<MemoryBlock<DataType>>, public ImplicitAMS<DataType>
+	class ImplicitSequence :
+		public Sequence<MemoryBlock<DataType>>,
+		public ImplicitAMS<DataType>
 	{
 	public:
 		using BlockType = MemoryBlock<DataType>;
@@ -87,16 +89,26 @@ namespace ds::amt
 	//----------
 
 	template<typename DataType>
-	ImplicitSequence<DataType>::ImplicitSequence() {}
+	ImplicitSequence<DataType>::ImplicitSequence()
+	{
+	}
 
 	template<typename DataType>
-	ImplicitSequence<DataType>::ImplicitSequence(size_t initialSize, bool initBlocks) : ImplicitAMS<DataType>(initialSize, initBlocks) {}
+	ImplicitSequence<DataType>::ImplicitSequence(size_t initialSize, bool initBlocks) :
+		ImplicitAMS<DataType>(initialSize, initBlocks)
+	{
+	}
 
 	template<typename DataType>
-	ImplicitSequence<DataType>::ImplicitSequence(const ImplicitSequence<DataType>& other) : ImplicitAMS<DataType>::ImplicitAbstractMemoryStructure(other) {}
+	ImplicitSequence<DataType>::ImplicitSequence(const ImplicitSequence<DataType>& other) :
+		ImplicitAMS<DataType>::ImplicitAbstractMemoryStructure(other)
+	{
+	}
 
 	template<typename DataType>
-	ImplicitSequence<DataType>::~ImplicitSequence() {}
+	ImplicitSequence<DataType>::~ImplicitSequence()
+	{
+	}
 
 	template<typename DataType>
 	size_t ImplicitSequence<DataType>::calculateIndex(BlockType& block)
@@ -113,8 +125,7 @@ namespace ds::amt
 	template<typename DataType>
 	auto ImplicitSequence<DataType>::accessLast() const -> BlockType*
 	{
-		size_t size = this->size();
-
+		const size_t size = this->size();
 		return size > 0 ? &this->getMemoryManager()->getBlockAt(size - 1) : nullptr;
 	}
 
@@ -128,8 +139,7 @@ namespace ds::amt
 	auto ImplicitSequence<DataType>::accessNext(const BlockType& block) const -> BlockType*
 	{
 		typename ImplicitAMS<DataType>::MemoryManagerType* memManager = this->getMemoryManager();
-		size_t index = indexOfNext(memManager->calculateIndex(block));
-
+		const size_t index = indexOfNext(memManager->calculateIndex(block));
 		return index < this->size() ? &memManager->getBlockAt(index) : nullptr;
 	}
 
@@ -137,8 +147,7 @@ namespace ds::amt
 	auto ImplicitSequence<DataType>::accessPrevious(const BlockType& block) const -> BlockType*
 	{
 		typename ImplicitAMS<DataType>::MemoryManagerType* memManager = this->getMemoryManager();
-		size_t index = indexOfPrevious(memManager->calculateIndex(block));
-
+		const size_t index = indexOfPrevious(memManager->calculateIndex(block));
 		return index != INVALID_INDEX ? &memManager->getBlockAt(index) : nullptr;
 	}
 
@@ -164,7 +173,6 @@ namespace ds::amt
 	auto ImplicitSequence<DataType>::insertAfter(BlockType& block) -> BlockType&
 	{
 		typename ImplicitAMS<DataType>::MemoryManagerType* memManager = this->getMemoryManager();
-
 		return *memManager->allocateMemoryAt(memManager->calculateIndex(block) + 1);
 	}
 
@@ -172,7 +180,6 @@ namespace ds::amt
 	auto ImplicitSequence<DataType>::insertBefore(BlockType& block) -> BlockType&
 	{
 		typename ImplicitAMS<DataType>::MemoryManagerType* memManager = this->getMemoryManager();
-
 		return *memManager->allocateMemoryAt(memManager->calculateIndex(block));
 
 	}
@@ -228,16 +235,24 @@ namespace ds::amt
 	}
 
 	template <typename DataType>
-	ImplicitSequence<DataType>::ImplicitSequenceIterator::ImplicitSequenceIterator(ImplicitSequence<DataType>* sequence, size_t index) : sequence_(sequence), position_(index) {}
+	ImplicitSequence<DataType>::ImplicitSequenceIterator::ImplicitSequenceIterator
+	(ImplicitSequence<DataType>* sequence, size_t index) :
+		sequence_(sequence),
+		position_(index)
+	{
+	}
 
 	template <typename DataType>
-	ImplicitSequence<DataType>::ImplicitSequenceIterator::ImplicitSequenceIterator(const ImplicitSequenceIterator& other) : sequence_(other.sequence_), position_(other.position_) {}
+	ImplicitSequence<DataType>::ImplicitSequenceIterator::ImplicitSequenceIterator
+	(const ImplicitSequenceIterator& other) :
+		sequence_(other.sequence_), position_(other.position_)
+	{
+	}
 
 	template <typename DataType>
 	auto ImplicitSequence<DataType>::ImplicitSequenceIterator::operator++() -> ImplicitSequenceIterator&
 	{
-		position_++;
-
+		++position_;
 		return *this;
 	}
 
@@ -246,20 +261,19 @@ namespace ds::amt
 	{
 		ImplicitSequenceIterator tmp(*this);
 		operator++();
-
 		return tmp;
 	}
 
 	template <typename DataType>
 	bool ImplicitSequence<DataType>::ImplicitSequenceIterator::operator==(const ImplicitSequenceIterator& other) const
 	{
-		return position_ == other.position_ && sequence_ == other.sequence_;
+		return sequence_ == other.sequence_ && position_ == other.position_;
 	}
 
 	template <typename DataType>
 	bool ImplicitSequence<DataType>::ImplicitSequenceIterator::operator!=(const ImplicitSequenceIterator& other) const
 	{
-		return position_ != other.position_ || sequence_ != other.sequence_;
+		return sequence_ != other.sequence_ || position_ != other.position_;
 	}
 
 	template <typename DataType>
@@ -281,24 +295,29 @@ namespace ds::amt
 	}
 
 	template<typename DataType>
-	CyclicImplicitSequence<DataType>::CyclicImplicitSequence() : IS<DataType>() {}
+	CyclicImplicitSequence<DataType>::CyclicImplicitSequence() :
+		IS<DataType>()
+	{
+	}
 
 	template<typename DataType>
-	CyclicImplicitSequence<DataType>::CyclicImplicitSequence(size_t initCapacity, bool initBlocks) : IS<DataType>(initCapacity, initBlocks) {}
+	CyclicImplicitSequence<DataType>::CyclicImplicitSequence(size_t initCapacity, bool initBlocks) :
+		IS<DataType>(initCapacity, initBlocks)
+	{
+	}
 
 	template<typename DataType>
 	size_t CyclicImplicitSequence<DataType>::indexOfNext(size_t currentIndex) const
 	{
-		size_t size = this->size();
-
+		const size_t size = this->size();
 		return size != 0 ? currentIndex >= size - 1 ? 0 : currentIndex + 1 : INVALID_INDEX;
 	}
 
 	template<typename DataType>
 	size_t CyclicImplicitSequence<DataType>::indexOfPrevious(size_t currentIndex) const
 	{
-		size_t size = this->size();
-
+		const size_t size = this->size();
 		return size != 0 ? currentIndex <= 0 ? size - 1 : currentIndex - 1 : INVALID_INDEX;
 	}
+
 }

@@ -193,4 +193,7 @@
       <Filter>tests\adt</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\..\ds.natvis" />
+  </ItemGroup>
 </Project>

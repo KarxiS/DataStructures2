@@ -142,6 +142,7 @@ namespace ds::amt {
 		virtual public KWayHierarchy<BlockType, 2>
 	{
 	public:
+		
 		static const size_t LEFT_SON_INDEX = 0;
 		static const size_t RIGHT_SON_INDEX = 1;
 

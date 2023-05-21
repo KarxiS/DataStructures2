@@ -15,7 +15,15 @@ namespace ds::adt {
         K key_;
         T data_;
 
-        bool operator==(const TableItem<K, T>& other) { return key_ == other.key_ && data_ == other.data_; }
+        bool operator==(const TableItem<K, T>& other) const
+        {
+            return key_ == other.key_ && data_ == other.data_;
+        }
+
+        bool operator!=(const TableItem<K, T>& other) const
+        {
+            return !(*this == other);
+        }
     };
 
     template <typename K, typename T>
@@ -224,7 +232,7 @@ namespace ds::adt {
 
     protected:
         using BVSNodeType = typename amt::BinaryEH<BlockType>::BlockType;
-
+        
         amt::BinaryEH<BlockType>* getHierarchy() const;
 
         virtual BVSNodeType* findNodeWithRelation(K key);
@@ -640,10 +648,13 @@ namespace ds::adt {
 
     template <typename K, typename T>
     HashTable<K, T>::HashTableIterator::HashTableIterator
-        (const HashTableIterator& other) :
-        tablesCurrent_(other.tablesCurrent_),
-        tablesLast_(other.tablesLast_),
-        synonymIterator_(other.synonymIterator_)
+    (const HashTableIterator& other) :
+        tablesCurrent_(new PrimaryRegionIterator(*other.tablesCurrent_)),
+        tablesLast_(new PrimaryRegionIterator(*other.tablesLast_)),
+        synonymIterator_(other.synonymIterator_ != nullptr
+            ? new SynonymTableIterator(*other.synonymIterator_)
+            : nullptr
+        )
     {
     }
 
