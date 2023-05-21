@@ -12,6 +12,7 @@
 #include "uroven1a2.h"
 #include "uroven3.h"
 #include "uroven4.h"
+#include "uroven1.h"
 
 
 
@@ -23,7 +24,7 @@ auto main() -> int
         SetConsoleCP(1250);
         //uroven1a2 uroven;
         //uroven.main();
-        uroven4 uroven;
+        uroven3 uroven;
         uroven.main();
 }
 _CrtDumpMemoryLeaks();

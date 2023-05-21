@@ -3,6 +3,7 @@
 using namespace std;
 
 class Data {
+
 public:
     string sortnumber;
     string kod;
@@ -11,6 +12,7 @@ public:
     string shortTitle;
     string note;
     string type;
+   
     
     Data(string sortnum, string k, string offTitle, string medTitle, string shTitle, string n);
     Data() : sortnumber(), kod(), officialTitle(), mediumTitle(), shortTitle(), note() {}
@@ -23,6 +25,8 @@ public:
     int getKodInt();
     string getNote();
     string toString();
+    void setNezamestnanost(string nezam);
+    string getNezamestnanost();
     ~Data();
     
     bool operator==(const Data& other) const {

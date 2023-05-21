@@ -7,8 +7,9 @@
 
 auto uroven3::main() -> int
 {
-    {
+    initHeapMonitor();
 
+    {
         Algoritmus algObce;
         //cout << "zadajte nazov suboru (obce.csv,kraje.csv,okresy.csv)" << endl;
         //string string1;
@@ -54,7 +55,7 @@ auto uroven3::main() -> int
             return data.containsStr(nazov);
 
         };
-        while (true) {
+        while (input!=-1) {
 
 
             cout << "zadaj nazov a typ(1-obec,2-okres,3-kraj)" << endl;
@@ -140,5 +141,16 @@ uroven3::tabulkaSekvencii uroven3::naplnTabulku(tabulkaSekvencii tabulka, ds::am
     }
    
     return tabulka;
+
+}
+
+uroven3::~uroven3()
+{
+    vektorKraje.clear();
+    vektorObce.clear();
+    vektorOkresy.clear();
+    tabulkaKObec->clear();
+    tabulkaOkres->clear();
+    tabulkaKraj->clear();
 
 }

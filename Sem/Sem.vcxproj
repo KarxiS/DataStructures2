@@ -135,8 +135,12 @@
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Nacitavac.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="nacitavacNezamestnanosti.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="plnicHierarchie.cpp" />
     <ClCompile Include="TriediaciAlgoritmus.cpp" />
+    <ClCompile Include="uroven1.cpp" />
     <ClCompile Include="uroven1a2.cpp" />
     <ClCompile Include="uroven3.cpp" />
     <ClCompile Include="uroven4.cpp" />
@@ -148,8 +152,12 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="MemoryLeak.h" />
     <ClInclude Include="Nacitavac.h" />
+    <ClInclude Include="nacitavacNezamestnanosti.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="plnicHierarchie.h" />
     <ClInclude Include="TriediaciAlgoritmus.h" />
+    <ClInclude Include="uroven1.h" />
     <ClInclude Include="uroven1a2.h" />
     <ClInclude Include="uroven3.h" />
     <ClInclude Include="uroven4.h" />

@@ -1,11 +1,10 @@
-#include <libds/amt/explicit_hierarchy.h>
-#include "Data.h"
 
+#include <libds/amt/implicit_sequence.h>
+#include "Data.h"
 #pragma once
-class uroven1a2
+class uroven1
 {
-public:
-	
+public :
 	using strukturaData = ds::amt::ImplicitSequence<Data>;
 	auto main() -> int;
 	void vypisStrukturu(strukturaData& struktura);

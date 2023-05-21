@@ -42,6 +42,12 @@
     <ClCompile Include="TriediaciAlgoritmus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="nacitavacNezamestnanosti.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="uroven1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nacitavac.h">
@@ -75,6 +81,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TriediaciAlgoritmus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nacitavacNezamestnanosti.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uroven1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -63,6 +63,7 @@ auto uroven4::main() -> int
         vynulujStrukturu(vektorNaplneny);
         Algoritmus::filterPlnic(++begin2, hierar.end(), hasType, plnicPred);
         vypisStrukturu(vektorNaplneny);
+        vynulujStrukturu(vektorNaplneny);
         cin >> input;
         int index = 0;
         switch (input) {

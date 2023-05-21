@@ -94,8 +94,10 @@ string Data::getNote()
 string Data::toString()
 {
     return   officialTitle + " " + kod +  " "
-        + mediumTitle + " " + shortTitle + " " + (note) + "\n";
+        + mediumTitle + " " + shortTitle + " " + (note)+"\n";
 }
+
+
 
 Data::~Data()
 {
